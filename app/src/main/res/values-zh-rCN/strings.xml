@@ -3,4 +3,10 @@
     <string name="app_name">安卓实验课</string>
     <string name="hello_message">你好，安卓!</string>
     <string name="ButtonText">我是按钮</string>
+    <string name="HeaderText">我的控件</string>
+    <string name="ButtonText2">按钮</string>
+    <string name="CheckText">选中我</string>
+    <string name="SwitchText">设置 开/关</string>
+    <string name="HintText">这里输入你的答案</string>
+    <string name="ImageBtnDescription">国旗</string>
 </resources>
