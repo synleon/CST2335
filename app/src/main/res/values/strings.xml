@@ -8,4 +8,8 @@
     <string name="SwitchText">Switch on / off</string>
     <string name="HintText">Type your answer here</string>
     <string name="ImageBtnDescription">National Flag</string>
+    <string name="email_notification">Enter your Email address:</string>
+    <string name="password_notification">Type your password:</string>
+    <string name="email_hint">Type email here</string>
+    <string name="login_button_text">LOGIN</string>
 </resources>

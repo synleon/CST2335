@@ -9,4 +9,8 @@
     <string name="SwitchText">设置 开/关</string>
     <string name="HintText">这里输入你的答案</string>
     <string name="ImageBtnDescription">国旗</string>
+    <string name="email_notification">请输入你的邮箱地址：</string>
+    <string name="password_notification">请输入你的密码：</string>
+    <string name="email_hint">这里输入邮箱</string>
+    <string name="login_button_text">登陆</string>
 </resources>
