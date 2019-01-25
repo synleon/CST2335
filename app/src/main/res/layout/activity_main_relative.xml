@@ -25,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
+        android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/button2"
         android:contentDescription="@string/ImageBtnDescription"
         app:srcCompat="@drawable/flag" />
