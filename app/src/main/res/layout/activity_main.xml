@@ -14,13 +14,13 @@
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
-        android:textSize="30sp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -35,10 +35,10 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        android:textSize="30sp" />
+        android:textSize="24sp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_button_text"
