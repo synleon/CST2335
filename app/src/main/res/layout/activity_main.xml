@@ -20,7 +20,7 @@
         android:ems="10"
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
-        android:textSize="24sp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView2"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        android:textSize="24sp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/login"

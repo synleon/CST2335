@@ -33,11 +33,13 @@ public class MainActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener( v -> {
             Intent profilePage = new Intent(MainActivity.this, ProfileActivity.class);
-            startActivityForResult(profilePage, 2);
+
 
             // get email user typed
+            String emailTyped = editEmail.getText().toString();
+            profilePage.putExtra(getString(R.string.preference_reserved_email), emailTyped);
 
-
+            startActivity(profilePage);
         });
 
     }

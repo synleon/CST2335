@@ -20,4 +20,5 @@
     <string name="profile_email_label">你的邮箱：</string>
     <string name="profile_picure_label">你的图片：</string>
     <string name="name_hint">这里输入姓名</string>
+    <string name="take_picture_hint">按上面的按钮打开相机拍照</string>
 </resources>
