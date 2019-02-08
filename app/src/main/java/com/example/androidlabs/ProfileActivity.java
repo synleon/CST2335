@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -58,6 +59,13 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
 
+        });
+
+        Button gotochatButton = findViewById(R.id.buttongotochat);
+
+        gotochatButton.setOnClickListener( v -> {
+            Intent chatIntent = new Intent(ProfileActivity.this, ChatRoomActivity.class);
+            startActivity(chatIntent);
         });
     }
 

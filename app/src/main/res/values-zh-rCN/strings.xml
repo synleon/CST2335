@@ -21,4 +21,8 @@
     <string name="profile_picure_label">你的图片：</string>
     <string name="name_hint">这里输入姓名</string>
     <string name="take_picture_hint">按上面的按钮打开相机拍照</string>
+    <string name="ButtonText_GoToChat">去聊天室</string>
+    <string name="ButtonText_Send">发送</string>
+    <string name="ButtonText_Receive">接收</string>
+    <string name="HintText_chat">在这里输入</string>
 </resources>

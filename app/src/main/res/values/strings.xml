@@ -20,4 +20,8 @@
     <string name="profile_picure_label">Your picture:</string>
     <string name="name_hint">Type your name here</string>
     <string name="take_picture_hint">Click the button above to take a picture</string>
+    <string name="ButtonText_GoToChat">Go to chat</string>
+    <string name="ButtonText_Send">Send</string>
+    <string name="ButtonText_Receive">Receive</string>
+    <string name="HintText_chat">Type here</string>
 </resources>
