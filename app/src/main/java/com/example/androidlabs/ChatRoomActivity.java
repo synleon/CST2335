@@ -13,12 +13,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 public class ChatRoomActivity extends AppCompatActivity implements View.OnClickListener{
-    // private ArrayList<Message> messages;
+
     private EditText editText;
+
     private MyListAdapter adapter;
 
     @Override
@@ -26,7 +24,7 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
 
-        // messages = new ArrayList<>();
+
         editText = findViewById(R.id.editTextChatMsg);
         ListView listConv = findViewById(R.id.listConversation);
         adapter = new MyListAdapter(this, R.id.listConversation);
@@ -54,30 +52,35 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
                 adapter.add(new Message(input, MessageType.RECEIVED));
                 break;
             default:
-                assert false;
+                break;
         }
         adapter.notifyDataSetChanged();
         editText.setText("");
     }
 
 
-
+    /**
+     * MessageType Enum Type
+     */
     private enum MessageType { SENT, RECEIVED }
 
+    /**
+     * Message representing class
+     */
     private class Message {
         private String message;
         private MessageType type;
 
-        public Message(String message, MessageType type) {
+        Message(String message, MessageType type) {
             this.message = message;
             this.type = type;
         }
 
-        public String getMessage() {
+        String getMessage() {
             return message;
         }
 
-        public MessageType getType() {
+        MessageType getType() {
             return type;
         }
 
@@ -90,11 +93,14 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    /**
+     * Customized List Adapter, with built-in container for Message
+     */
     private class MyListAdapter extends ArrayAdapter<Message> {
         private LayoutInflater inflater;
 
 
-        public MyListAdapter(Context context, int resource) {
+        MyListAdapter(Context context, int resource) {
             super(context, resource);
             this.inflater = LayoutInflater.from(context);
         }
