@@ -27,6 +27,8 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
 
     private SQLiteDatabase db;
 
+    public static final String ACTIVITY_NAME = "CHATROOM_ACTIVITY";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,12 +55,15 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
         String[] columns = {MyDatabaseOpenHelper.COL_ID, MyDatabaseOpenHelper.COL_MESSAGE, MyDatabaseOpenHelper.COL_MESSAGE_TYPE};
         Cursor results = db.query(false, MyDatabaseOpenHelper.TABLE_NAME, columns, null, null, null, null, null, null);
 
+        printCursor(results);
+
         //find the column indices:
         int messageTypeIndex = results.getColumnIndex(MyDatabaseOpenHelper.COL_MESSAGE_TYPE);
         int messageIndex = results.getColumnIndex(MyDatabaseOpenHelper.COL_MESSAGE);
         int idColIndex = results.getColumnIndex(MyDatabaseOpenHelper.COL_ID);
 
         //iterate over the results, return true if there is a next item:
+        results.moveToFirst();
         while(results.moveToNext())
         {
             String message = results.getString(messageIndex);
@@ -188,5 +193,22 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
      * @param cursor cursor that containes dataset selected from database
      */
     public void printCursor(Cursor cursor) {
+
+        int columnNumber = cursor.getColumnCount();
+        Log.e(ACTIVITY_NAME, "Column number: " + columnNumber);
+
+        for (int i = 0; i < columnNumber; ++i) {
+            Log.e(ACTIVITY_NAME, "Column[" + i + "] name:" + cursor.getColumnName(i));
+        }
+
+        int rows = cursor.getCount();
+        Log.e(ACTIVITY_NAME, "There are " + rows + " rows in cursor");
+
+        while (cursor.moveToNext()) {
+            StringBuilder string = new StringBuilder();
+            for (int j = 0; j < columnNumber; ++j)
+                 string.append(cursor.getString(j) + " ");
+            Log.e(ACTIVITY_NAME, string.toString());
+        }
     }
 }
