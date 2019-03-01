@@ -195,20 +195,20 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
     public void printCursor(Cursor cursor) {
 
         int columnNumber = cursor.getColumnCount();
-        Log.e(ACTIVITY_NAME, "Column number: " + columnNumber);
+        Log.i(ACTIVITY_NAME, "Column number: " + columnNumber);
 
         for (int i = 0; i < columnNumber; ++i) {
-            Log.e(ACTIVITY_NAME, "Column[" + i + "] name:" + cursor.getColumnName(i));
+            Log.i(ACTIVITY_NAME, "Column[" + i + "] name:" + cursor.getColumnName(i));
         }
 
         int rows = cursor.getCount();
-        Log.e(ACTIVITY_NAME, "There are " + rows + " rows in cursor");
+        Log.i(ACTIVITY_NAME, "There are " + rows + " rows in cursor");
 
         while (cursor.moveToNext()) {
             StringBuilder string = new StringBuilder();
             for (int j = 0; j < columnNumber; ++j)
                  string.append(cursor.getString(j) + " ");
-            Log.e(ACTIVITY_NAME, string.toString());
+            Log.i(ACTIVITY_NAME, string.toString());
         }
     }
 }
