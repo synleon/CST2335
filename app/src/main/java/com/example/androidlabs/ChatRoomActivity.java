@@ -1,9 +1,13 @@
 package com.example.androidlabs;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +23,18 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
 
     private MyListAdapter adapter;
 
+    private MyDatabaseOpenHelper dbOpener;
+
+    private SQLiteDatabase db;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatroom);
+
+        //get a database:
+        dbOpener = new MyDatabaseOpenHelper(this);
+        db = dbOpener.getWritableDatabase();
 
 
         editText = findViewById(R.id.editTextChatMsg);
@@ -35,6 +47,31 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
 
         Button buttonReceived = findViewById(R.id.buttonReceive);
         buttonReceived.setOnClickListener(this);
+
+        // TODO: open database, read all the messages and insert them into listview control
+        //query all the results from the database:
+        String[] columns = {MyDatabaseOpenHelper.COL_ID, MyDatabaseOpenHelper.COL_MESSAGE, MyDatabaseOpenHelper.COL_MESSAGE_TYPE};
+        Cursor results = db.query(false, MyDatabaseOpenHelper.TABLE_NAME, columns, null, null, null, null, null, null);
+
+        //find the column indices:
+        int messageTypeIndex = results.getColumnIndex(MyDatabaseOpenHelper.COL_MESSAGE_TYPE);
+        int messageIndex = results.getColumnIndex(MyDatabaseOpenHelper.COL_MESSAGE);
+        int idColIndex = results.getColumnIndex(MyDatabaseOpenHelper.COL_ID);
+
+        //iterate over the results, return true if there is a next item:
+        while(results.moveToNext())
+        {
+            String message = results.getString(messageIndex);
+            String messageType = results.getString(messageTypeIndex);
+            long id = results.getLong(idColIndex);
+
+            //add the new Contact to the array list:
+            if (messageType.equals("SENT")) {
+                adapter.add(new Message(id, message, MessageType.SENT));
+            } else {
+                adapter.add(new Message(id, message, MessageType.RECEIVED));
+            }
+        }
     }
 
     @Override
@@ -44,17 +81,27 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
         if (input.length() == 0)
             return;
 
+        // TODO: insert user input into database
+        ContentValues newRowValues = new ContentValues();
+        newRowValues.put(MyDatabaseOpenHelper.COL_MESSAGE, input);
+
+
+        long newId = 0;
+
         switch (v.getId()) {
             case R.id.buttonSend:
-                adapter.add(new Message(input, MessageType.SENT));
+                newRowValues.put(MyDatabaseOpenHelper.COL_MESSAGE_TYPE, "SENT");
+                newId = db.insert(MyDatabaseOpenHelper.TABLE_NAME, null, newRowValues);
+                adapter.add(new Message(newId, input, MessageType.SENT));
                 break;
             case R.id.buttonReceive:
-                adapter.add(new Message(input, MessageType.RECEIVED));
+                newRowValues.put(MyDatabaseOpenHelper.COL_MESSAGE_TYPE, "RECEIVED");
+                newId = db.insert(MyDatabaseOpenHelper.TABLE_NAME, null, newRowValues);
+                adapter.add(new Message(newId, input, MessageType.RECEIVED));
                 break;
             default:
                 break;
         }
-        adapter.notifyDataSetChanged();
         editText.setText("");
     }
 
@@ -68,10 +115,13 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
      * Message representing class
      */
     private class Message {
+        private long id;
         private String message;
         private MessageType type;
 
-        Message(String message, MessageType type) {
+
+        public Message(long id, String message, MessageType type) {
+            this.id = id;
             this.message = message;
             this.type = type;
         }
@@ -84,10 +134,15 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
             return type;
         }
 
+        public long getId() {
+            return id;
+        }
+
         @Override
         public String toString() {
             return "Message{" +
-                    "message='" + message + '\'' +
+                    "id=" + id +
+                    ", message='" + message + '\'' +
                     ", type=" + type +
                     '}';
         }
@@ -125,5 +180,13 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
 
             return view;
         }
+    }
+
+    /**
+     * print database information
+     * print dateset information
+     * @param cursor cursor that containes dataset selected from database
+     */
+    public void printCursor(Cursor cursor) {
     }
 }
