@@ -24,4 +24,18 @@
     <string name="ButtonText_Send">Send</string>
     <string name="ButtonText_Receive">Receive</string>
     <string name="HintText_chat">Type here</string>
+    <string name="ButtonText_GoToToolbar">Go to Toolbar Page</string>
+    <string name="menu_title_choice1">Choice 1</string>
+    <string name="menu_title_choice2">Choice 2</string>
+    <string name="menu_title_choice3">Choice 3</string>
+    <string name="menu_title_choice4">Choice 4</string>
+    <string name="menu_title_choice1_msg">This is the initial message</string>
+    <string name="menu_title_choice4_msg">You clicked on the overflow menu</string>
+    <string name="prompt_msg">Go Back?</string>
+    <string name="prompt_msg_yes">Yes</string>
+    <string name="extra_new_msg">What is your new message?</string>
+    <string name="extra_new_msg_hint">Type here</string>
+
+
+
 </resources>

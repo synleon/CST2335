@@ -67,6 +67,13 @@ public class ProfileActivity extends AppCompatActivity {
             Intent chatIntent = new Intent(ProfileActivity.this, ChatRoomActivity.class);
             startActivity(chatIntent);
         });
+
+        Button gotoToolbarButton = findViewById(R.id.buttongototoolbar);
+
+        gotoToolbarButton.setOnClickListener( v -> {
+            Intent toolbarIntent = new Intent(ProfileActivity.this, TestToolbar.class);
+            startActivity(toolbarIntent);
+        });
     }
 
     @Override

@@ -25,4 +25,15 @@
     <string name="ButtonText_Send">发送</string>
     <string name="ButtonText_Receive">接收</string>
     <string name="HintText_chat">在这里输入</string>
+    <string name="ButtonText_GoToToolbar">去工具栏页面</string>
+    <string name="menu_title_choice1">选择 1</string>
+    <string name="menu_title_choice2">选择 2</string>
+    <string name="menu_title_choice3">选择 3</string>
+    <string name="menu_title_choice4">选择 4</string>
+    <string name="menu_title_choice1_msg">这是初始信息</string>
+    <string name="menu_title_choice4_msg">你点击了溢出菜单</string>
+    <string name="prompt_msg">回退?</string>
+    <string name="prompt_msg_yes">是</string>
+    <string name="extra_new_msg">你的新信息是什么？</string>
+    <string name="extra_new_msg_hint">在这里输入</string>
 </resources>
