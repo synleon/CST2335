@@ -24,4 +24,5 @@
     <string name="ButtonText_Send">Send</string>
     <string name="ButtonText_Receive">Receive</string>
     <string name="HintText_chat">Type here</string>
+    <string name="ButtonText_StartWeatherQuery">Weather Query</string>
 </resources>
