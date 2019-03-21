@@ -16,14 +16,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -56,7 +59,7 @@ public class WeatherForecast extends AppCompatActivity {
 
     private class ForecastQuery extends AsyncTask<String, Integer, String> {
 
-        private String windSpeed;
+        private double uvIndex;
         private String minTemp;
         private String maxTemp;
         private String currentTemp;
@@ -91,6 +94,9 @@ public class WeatherForecast extends AppCompatActivity {
 
             ImageView imageView = findViewById(R.id.imageView_weather);
             imageView.setImageBitmap(bmpWeather);
+
+            textView = findViewById(R.id.textView_UVRating);
+            textView.setText("UV Rating:\t" + uvIndex);
 
             ProgressBar progressBar = findViewById(R.id.progressBar_weatherQuery);
             progressBar.setVisibility(View.INVISIBLE);
@@ -201,12 +207,22 @@ public class WeatherForecast extends AppCompatActivity {
                     xpp.next(); //advance to next XML event
                 }
 
-                // get uv index
-                url = new URL("http://api.openweathermap.org/data/2.5/uvi?appid=7e943c97096a9784391a981c4d878b22&lat=45.348945&lon=-75.759389");
+                // get uv index 22.557934, 113.991905
+                url = new URL("http://api.openweathermap.org/data/2.5/uvi?appid=7e943c97096a9784391a981c4d878b22&lat=22.557934&lon=113.991905");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 inStream = urlConnection.getInputStream();
 
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, "UTF-8"), 8);
+                StringBuilder sb = new StringBuilder();
 
+                String line = null;
+                while ((line = reader.readLine()) != null)
+                {
+                    sb.append(line + "\n");
+                }
+                String result = sb.toString();
+                JSONObject jObject = new JSONObject(result);
+                uvIndex = jObject.getDouble("value");
 
             } catch (Exception ex) {
                 Log.e("Crash!!", ex.getMessage());
