@@ -1,9 +1,7 @@
 package com.example.androidlabs;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,10 +15,6 @@ public class DetailFragment extends Fragment {
 
     private boolean isTablet;
     private Bundle dataFromActivity;
-
-    public boolean isTablet() {
-        return isTablet;
-    }
 
     public void setTablet(boolean tablet) {
         isTablet = tablet;
@@ -39,13 +33,13 @@ public class DetailFragment extends Fragment {
         View result = inflater.inflate(R.layout.fragment_detail, container, false);
 
         TextView textViewId = result.findViewById(R.id.tv_fragdetail_id);
-        textViewId.setText(Long.valueOf(messageId).toString());
+        textViewId.setText("MessageId=" + Long.valueOf(messageId).toString());
 
         TextView textViewMsg = result.findViewById(R.id.tv_fragdetail_message);
-        textViewMsg.setText(message);
+        textViewMsg.setText("Message=" + message);
 
         TextView textViewType = result.findViewById(R.id.tv_fragdetail_message_type);
-        textViewType.setText(messageType);
+        textViewType.setText("MessageType=" + messageType);
 
         Button btnDelete = result.findViewById(R.id.btn_fragdetail_delete);
         btnDelete.setOnClickListener( v -> {

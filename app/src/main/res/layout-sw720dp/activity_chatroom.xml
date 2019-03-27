@@ -44,5 +44,5 @@
         android:layout_height="match_parent"
         android:layout_toEndOf="@id/listConversation"
         android:layout_alignParentEnd="true"
-        android:background="@color/colorPrimaryDark" />
+        android:background="@color/colorPrimary" />
 </RelativeLayout>

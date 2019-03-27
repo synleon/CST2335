@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -115,20 +114,16 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
                 detailFragment.setTablet(true);
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.fragmentLocation, detailFragment)
+                        .replace(R.id.fragmentLocation, detailFragment)
                         .addToBackStack("AnyName")
                         .commit();
             } else {
                 // phone
                 Intent nextActivity = new Intent(ChatRoomActivity.this, ContainerActivity.class);
-
                 nextActivity.putExtras(dataToSend);
-
                 startActivityForResult(nextActivity, CONTAINER_ACTIVITY_REQUESTCODE);
-
             }
         });
-
     }
 
     @Override
@@ -178,6 +173,7 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
      * @param messageId
      */
     public void deleteMessageWithId(long messageId, int position) {
+
         String whereClause = MyDatabaseOpenHelper.COL_ID + "=?";
 
         db.delete(MyDatabaseOpenHelper.TABLE_NAME, whereClause, new String[]{Long.valueOf(messageId).toString()});

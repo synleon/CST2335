@@ -15,11 +15,13 @@ public class ContainerActivity extends AppCompatActivity {
         // add a fragment
         DetailFragment detailFragment = new DetailFragment();
         detailFragment.setArguments(dataToPass);
-        detailFragment.setTablet(true);
+        detailFragment.setTablet(false);
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragmentLocation, detailFragment)
+                .replace(R.id.fragmentLocation, detailFragment)
                 .addToBackStack("AnyName")
                 .commit();
     }
+
+
 }
