@@ -1,7 +1,9 @@
 package com.example.androidlabs;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +32,16 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
 
     public static final String ACTIVITY_NAME = "CHATROOM_ACTIVITY";
 
+    public static final String KEY_ID = "ID";
+
+    public static final String KEY_MESSAGE = "MESSAGE";
+
+    public static final String KEY_TYPE = "TYPE";
+
+    public static final String POSITION = "POSITION";
+
+    public static final int CONTAINER_ACTIVITY_REQUESTCODE = 135;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +54,8 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
 
         editText = findViewById(R.id.editTextChatMsg);
         ListView listConv = findViewById(R.id.listConversation);
+
+        // initialize customized array adapter
         adapter = new MyListAdapter(this, R.id.listConversation);
         listConv.setAdapter(adapter);
 
@@ -50,7 +65,8 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
         Button buttonReceived = findViewById(R.id.buttonReceive);
         buttonReceived.setOnClickListener(this);
 
-        // TODO: open database, read all the messages and insert them into listview control
+        boolean isTablet = (findViewById(R.id.fragmentLocation) != null);
+
         //query all the results from the database:
         String[] columns = {MyDatabaseOpenHelper.COL_ID, MyDatabaseOpenHelper.COL_MESSAGE, MyDatabaseOpenHelper.COL_MESSAGE_TYPE};
         Cursor results = db.query(false, MyDatabaseOpenHelper.TABLE_NAME, columns, null, null, null, null, null, null);
@@ -62,7 +78,7 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
         int messageIndex = results.getColumnIndex(MyDatabaseOpenHelper.COL_MESSAGE);
         int idColIndex = results.getColumnIndex(MyDatabaseOpenHelper.COL_ID);
 
-        //iterate over the results, return true if there is a next item:
+        //iterate over the results, and populate the list view
         results.moveToFirst();
         while(results.moveToNext())
         {
@@ -75,6 +91,53 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
                 adapter.add(new Message(id, message, MessageType.SENT));
             } else {
                 adapter.add(new Message(id, message, MessageType.RECEIVED));
+            }
+        }
+
+        // set listView item click routine
+        listConv.setOnItemClickListener((parent, view, position, id) -> {
+
+            // get the information of the clicked item
+            Message message = (Message)parent.getItemAtPosition(position);
+
+            Bundle dataToSend = new Bundle();
+            dataToSend.putLong(KEY_ID, message.getId());
+            dataToSend.putString(KEY_MESSAGE, message.getMessage());
+            dataToSend.putString(KEY_TYPE, (message.getType() == MessageType.SENT ? "SENT" : "RECEIVED"));
+            dataToSend.putInt(POSITION, position);
+
+
+            if (isTablet) {
+                // Tablet
+                // add a fragment
+                DetailFragment detailFragment = new DetailFragment();
+                detailFragment.setArguments(dataToSend);
+                detailFragment.setTablet(true);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.fragmentLocation, detailFragment)
+                        .addToBackStack("AnyName")
+                        .commit();
+            } else {
+                // phone
+                Intent nextActivity = new Intent(ChatRoomActivity.this, ContainerActivity.class);
+
+                nextActivity.putExtras(dataToSend);
+
+                startActivityForResult(nextActivity, CONTAINER_ACTIVITY_REQUESTCODE);
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == CONTAINER_ACTIVITY_REQUESTCODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                long messageId = data.getLongExtra(KEY_ID, 0);
+                int position = data.getIntExtra(POSITION, 0);
+                deleteMessageWithId(messageId, position);
             }
         }
     }
@@ -108,6 +171,18 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
                 break;
         }
         editText.setText("");
+    }
+
+    /**
+     * delete message with id from SQLite and listView
+     * @param messageId
+     */
+    public void deleteMessageWithId(long messageId, int position) {
+        String whereClause = MyDatabaseOpenHelper.COL_ID + "=?";
+
+        db.delete(MyDatabaseOpenHelper.TABLE_NAME, whereClause, new String[]{Long.valueOf(messageId).toString()});
+
+        adapter.remove(adapter.getItem(position));
     }
 
 

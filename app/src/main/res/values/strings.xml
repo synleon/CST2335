@@ -25,4 +25,7 @@
     <string name="ButtonText_Receive">Receive</string>
     <string name="HintText_chat">Type here</string>
     <string name="ButtonText_StartWeatherQuery">Weather Query</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

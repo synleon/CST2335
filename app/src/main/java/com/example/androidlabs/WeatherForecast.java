@@ -32,12 +32,6 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class WeatherForecast extends AppCompatActivity {
-//    private TextView tvCurTemp;
-//    private TextView tvMaxTemp;
-//    private TextView tvMinTemp;
-//    private ProgressBar progressBar;
-//    private ImageView imageViewWeatherIcon;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +39,6 @@ public class WeatherForecast extends AppCompatActivity {
 
         ProgressBar progressBar = findViewById(R.id.progressBar_weatherQuery);
         progressBar.setVisibility(View.VISIBLE);
-//        tvCurTemp = findViewById(R.id.textView_currentTemp);
-//        tvMaxTemp = findViewById(R.id.textView_maxTemp);
-//        tvMinTemp = findViewById(R.id.textView_minTemp);
-//        imageViewWeatherIcon = findViewById(R.id.imageView_weather);
 
         Button btnWeatherQuery = findViewById(R.id.button_WeatherQuery);
         btnWeatherQuery.setOnClickListener(v -> {
@@ -78,11 +68,7 @@ public class WeatherForecast extends AppCompatActivity {
          */
         @Override
         protected void onPostExecute(String s) {
-//            tvCurTemp.setText(currentTemp);
-//            tvMaxTemp.setText(maxTemp);
-//            tvMinTemp.setText(minTemp);
-//            progressBar.setVisibility(View.INVISIBLE);
-//            imageViewWeatherIcon.setImageBitmap(bmpWeather);
+
             TextView textView = findViewById(R.id.textView_currentTemp);
             textView.setText("Current Temperature:\t" + currentTemp);
 
