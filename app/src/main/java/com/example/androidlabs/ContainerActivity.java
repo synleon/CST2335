@@ -19,7 +19,7 @@ public class ContainerActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentLocation, detailFragment)
-                .addToBackStack("AnyName")
+                .addToBackStack(null)
                 .commit();
     }
 

@@ -115,7 +115,7 @@ public class ChatRoomActivity extends AppCompatActivity implements View.OnClickL
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragmentLocation, detailFragment)
-                        .addToBackStack("AnyName")
+//                        .addToBackStack(null)
                         .commit();
             } else {
                 // phone

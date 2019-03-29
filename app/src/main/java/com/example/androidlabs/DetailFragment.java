@@ -1,6 +1,7 @@
 package com.example.androidlabs;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 public class DetailFragment extends Fragment {
 
     private boolean isTablet;
-    private Bundle dataFromActivity;
 
     public void setTablet(boolean tablet) {
         isTablet = tablet;
@@ -23,7 +23,7 @@ public class DetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        dataFromActivity = getArguments();
+        Bundle dataFromActivity = getArguments();
         String message = dataFromActivity.getString(ChatRoomActivity.KEY_MESSAGE);
         long messageId = dataFromActivity.getLong(ChatRoomActivity.KEY_ID);
         String messageType = dataFromActivity.getString(ChatRoomActivity.KEY_TYPE);
@@ -62,5 +62,13 @@ public class DetailFragment extends Fragment {
         return result;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
 }
